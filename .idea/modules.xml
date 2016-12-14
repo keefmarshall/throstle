@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/throstle.iml" filepath="$PROJECT_DIR$/throstle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi-core/wasabi-core.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi-core/wasabi-core.iml" group="wasabi-core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi-core/wasabi-core_main.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi-core/wasabi-core_main.iml" group="wasabi-core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi-core/wasabi-core_test.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi-core/wasabi-core_test.iml" group="wasabi-core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi-samples/wasabi-samples.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi-samples/wasabi-samples.iml" group="wasabi-samples" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi-samples/wasabi-samples_main.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi-samples/wasabi-samples_main.iml" group="wasabi-samples" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi-samples/wasabi-samples_test.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi-samples/wasabi-samples_test.iml" group="wasabi-samples" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi_main.iml" group="wasabi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wasabi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/wasabi_test.iml" group="wasabi" />
+    </modules>
+  </component>
+</project>

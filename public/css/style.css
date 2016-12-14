@@ -1,0 +1,42 @@
+body {
+    font-family: Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #405060;
+
+    /* This allows room for bottom-fixed navbar */
+    padding-bottom: 70px;
+}
+
+.jumbotron {
+    font-family: 'Lora', serif;
+    /* background-color: #D9EDF7; */
+}
+
+.modal {
+    font-family: 'Lora', serif;
+}
+
+#password-display {
+}
+
+#password-holder {
+    /* border: 1px solid #332244; */
+    padding: 10px;
+/*    background-color: #F0E8F8; */
+    border: 3px inset #799DA7;
+}
+
+#password {
+    font-family: 'PT Mono', monospace;
+    font-size: 1.5em;
+    vertical-align: center;
+}
+
+#terms {
+    padding: 15px;
+}
+
+#picker {
+    /*background-color: #D8D0E0;*/
+    /* padding: 10px; */
+}
+

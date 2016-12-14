@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="throstleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Hypophyseal Throstle</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+
+    <!-- load bootstrap and fontawesome via CDN -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" /> -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- load angular and angular route via CDN -->
+    <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>-->
+    <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>-->
+
+    <!-- Bootstrap JS requires jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
+
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Hypophyseal Throstle</h1>
+        <p>... a semantic password generator</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-5" id="picker">
+                <div class="btn-group" role="group" id="length-buttons">
+                    <a class="btn btn-info" href="#" role="button"
+                       onclick="return populatePasswordAndTerms();">Random</a>
+                </div>
+            </div>
+
+
+            <div class="col-sm-7" id="password-display">
+
+                <div id="password-holder">
+                    <button class="btn btn-info clipbtn pull-right"
+                            data-clipboard-target="#password"
+                            title="Copy to clipboard">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                        <!-- <i class="fa fa-files-o fa-lg" aria-hidden="true"></i> -->
+                    </button>
+                    &nbsp;
+                    <span id="password" class="password">
+                        Loading...
+                    </span>
+                </div>
+
+                <div id="terms">
+                    <div id="term1" class="term"></div>
+                    <div id="term2" class="term"></div>
+                </div>
+            </div>
+
+        </div>
+    </div> <!-- // container -->
+
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="aboutModalLabel">About the Throstle</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The Throstle generates passwords from an extensive word list, attempting
+                        to combine words in a way that makes loose grammatical sense. It was
+                        heavily inspired by the excellent <a href="http://www.dinopass.com">Dinopass</a>,
+                        but with a view to more variety and consistency, and arguably more security.
+                    </p>
+
+                    <p>Some facts about the Throstle:</p>
+
+                    <ul>
+                        <li>Every password is guaranteed to have at least one of each type of character:
+                            uppercase, lowercase, numeric and punctuation.</li>
+                        <li>The generator is written in <a href="https://kotlinlang.org/">Kotlin</a>, as an experiment
+                            to learn the language.</li>
+                        <li>The REST component uses <a href="https://github.com/wasabifx/wasabi">wasabi</a>, an
+                            Express-like library for Kotlin.</li>
+                        <li>The front-end is written in Bootstrap and a tiny bit of JQuery.</li>
+                        <li>The word list comes primarily from <a href="https://wordnet.princeton.edu/">Wordnet</a>.</li>
+                    </ul>
+
+                    <p>
+                        The name Hypophyseal Throstle was the very first random combination of two words
+                        generated from the word lists during development. <strong>Hypophyseal</strong> means
+                        "related to the Hypophysis", or pituitary gland, which controls the release of hormones
+                        in the brain. <strong>Throstle</strong> has two meanings - (1) a mechanical spinning machine
+                        used during the Industrial Revolution - (2) an alternative (archaic) name for a thrush, a type
+                        of bird.
+                    </p>
+
+                    <p>
+                        For comments, questions, praise or insults, you can contact the website creator
+                        at throstle (@) eleusis (dot) uk.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="apiModal" tabindex="-1" role="dialog" aria-labelledby="apiModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="apiModalLabel">Throstle API</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The password-generation API is very simple to access.</p>
+
+                    <p>
+                        <a href="/password">https://throstle.eleusis.uk/password</a> generates a password of
+                        random length (between 8 and 20 characters) as a single word text/plain response.
+                    </p>
+
+                    <p>
+                        <a href="/password/15">https://throstle.eleusis.uk/password/[length]</a> generates a
+                        password of fixed length as a single word text/plain response.
+                        The minimum length is 8 characters and the maximum is 40 but it stops working well
+                        after 25 characters, you will get less variability as there are not so many English
+                        words or phrases available to make up the length. The algorithm may also have to pad
+                        with random characters which will make the password less memorable and defeat the
+                        point.
+                    </p>
+
+                    <p>
+                        Adding <code>?full</code> to either of these gives you a JSON response including
+                        the constituent terms used to generate the password.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="disclaimerModal" tabindex="-1" role="dialog" aria-labelledby="disclaimerModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="disclaimerModalLabel">Disclaimer</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Any password generated from a word list is a lot more easily guessed
+                        by a password cracking algorithm than a totally random collection of
+                        characters. Although the Throstle
+                        tries to mix it up a bit, there are many orders of magnitude fewer
+                        combinations generated here than by a truly random generator.
+                    </p>
+
+                    <p class="bg-warning">
+                        Please be aware of this and use only at your own risk.
+                    </p>
+
+                    <p>
+                        With any online password generator you can't be sure if the website
+                        is storing your generated password for nefarious purposes. This site
+                        doesn't do this, but you only have my word for it. Be careful out there.
+                    </p>
+
+                    <p class="bg-warning">
+                        The word list is not filtered, it includes some swear words. The combinations
+                        are entirely random and can produce some offensive phrases by accident - these are not to be
+                        interpreted as views of the website creator.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" data-toggle="modal" data-target="#aboutModal">About the Throstle</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#apiModal">API</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#disclaimerModal">Disclaimer</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+</body>
+</html>
