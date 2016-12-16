@@ -16,12 +16,14 @@ to start a web service listening on port 3000.
 
 I've included the .idea files in this repo.
 
-You will also need the wasabi library loaded as an additional module into your Idea session.
+You will also need the [wasabi](https://github.com/wasabifx/wasabi) library loaded as an
+additional module into your Idea session and added as a dependency.
+This seems to be a painful process for reasons I am unclear about.
 
 Word lists
 ----------
 
-There are four word files required - adjs, nouns, advs, verbs.
+There are four word files required - adj, nouns, advs, verbs.
 
 These are simple text files with one word per line. I extracted my versions from WordNet 3.1
 using Unix command line tools:
@@ -35,4 +37,4 @@ tail +30 data.adv | cut -d " " -f 5 | sed s/\(.*\)// | grep -v '^[^A-Za-z]' | so
 Deployment
 ----------
 
-The service is deployed at [https://throstle.eleusis.uk] for general use.
+The service is deployed at [https://throstle.eleusis.uk](https://throstle.eleusis.uk) for general use.
