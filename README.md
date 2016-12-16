@@ -28,7 +28,9 @@ using Unix command line tools:
 
 e.g.:
 
+```text
 tail +30 data.adv | cut -d " " -f 5 | sed s/\(.*\)// | grep -v '^[^A-Za-z]' | sort -f | uniq > advs.krm
+```
 
 Deployment
 ----------
