@@ -4,7 +4,8 @@
 
 fun main(args: Array<String>) {
 
-    val dictdir = "/Users/keith/Code/personal/wordnet/dict/"
+    //val dictdir = "/Users/keith/Code/personal/wordnet/dict/"
+    val dictdir = "/Users/keithm/Documents/workspace/Kotlin/wordnet/dict/"
 
 //    val listReader = ListReader()
 //    val adjs = listReader.readAndFilter(dictdir + "adj.krm")
