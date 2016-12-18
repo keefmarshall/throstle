@@ -21,7 +21,7 @@ class WebController(dictdir: String)
 
     val insults = listOf( "Silly sausage", "Don't give up the day job", "You muppet", "How rude",
             "You empty-headed animal food trough wiper", "Silly rabbit",
-            "Having a bad day? You see")
+            "Having a bad day? You see", "This is the world's simplest API, can't you see")
 
     val fixedLengthPassword = routeHandler {
         val lengthParam = request.routeParams["length"]
