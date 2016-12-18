@@ -20,8 +20,7 @@ class WebController(dictdir: String)
     }
 
     val insults = listOf( "Silly sausage", "Don't give up the day job", "You muppet", "How rude",
-            "Your mother was a hamster", "Your father smelt of elderberries",
-            "You empty-headed animal food trough wiper")
+            "You empty-headed animal food trough wiper", "Silly rabbit")
 
     val fixedLengthPassword = routeHandler {
         val lengthParam = request.routeParams["length"]
@@ -31,7 +30,8 @@ class WebController(dictdir: String)
         {
             response.setStatus(400, "Bad Request")
             val insult = insults[random.nextInt(insults.size)]
-            response.send("$insult, that is not a helpful password length. Try again.", "text/plain")
+            response.send("$insult, that is not a helpful password length. Try again.\n" +
+                    "The syntax is: /password/[length], e.g. /password/12", "text/plain")
         }
         else if (length < 8 || length > 40)
         {
