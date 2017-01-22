@@ -47,15 +47,9 @@ class PasswordGenerator(val dictdir: String)
 
         val password =
             if (combineType) // camelcase
-                eg.ensureUppercase(
-                        eg.addSuffix(
-                                eg.replaceOnePunct(
-                                        eg.combineCap(term1, term2))))
+                eg.combineCap(term1, term2).replaceOnePunct().addSuffix().ensureUppercase()
             else // join with punctuation
-                eg.ensureUppercase(
-                        eg.addSuffix(
-                                eg.replaceOneNumber(
-                                        eg.combineChar(term1, term2))))
+                eg.combineChar(term1, term2).replaceOneNumber().addSuffix().ensureUppercase()
 
         return PasswordResult(password, term1, term2, useVerb, combineType, length)
     }

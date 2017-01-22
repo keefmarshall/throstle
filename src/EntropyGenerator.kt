@@ -11,7 +11,7 @@ class EntropyGenerator
 
     private val punctuation = "!@#$%^&*()-_=+[]{};:~/\\|?<>,.".toList()
 
-    private val punctuationMappings = mapOf(
+    internal val punctuationMappings = mapOf(
             'a' to '@',
             'c' to '(',
             'd' to ')',
@@ -25,7 +25,7 @@ class EntropyGenerator
             't' to '+'
     )
 
-    private val numberMappings = mapOf(
+    internal val numberMappings = mapOf(
             'a' to '4',
             'b' to '6',
             'e' to '3',
@@ -67,26 +67,7 @@ class EntropyGenerator
         return returnTerm
     }
 
-    fun replaceOnePunct(term: String) = replaceOneChar(term, punctuationMappings)
-    fun replaceOneNumber(term: String) = replaceOneChar(term, numberMappings)
 
-    /**
-     * Adds a suffix to the string - if the string has no punctuation
-     * characters already, it will include one punctuation character in
-     * the suffix, otherwise it will use just numbers
-     */
-    fun addSuffix(term: String, size: Int = 2): String {
-        var returnTerm =
-            if (containsPunctuation(term)) {
-                appendNumbers(term, size)
-            } else {
-                val pterm = appendPunct(term)
-                appendNumbers(pterm, size - 1)
-            }
-
-
-        return returnTerm
-    }
 
     fun containsPunctuation(term: String): Boolean =
             term.find { ch -> punctuation.contains(ch) } != null
@@ -125,15 +106,45 @@ class EntropyGenerator
         return returnTerm
     }
 
-    /**
-     * Ensure there's at least one uppercase char, if not,
-     * pick one at random and uppercase it
-     */
-    fun ensureUppercase(term: String): String {
-        return if (!containsUppercase(term))
-            randomlyUppercase(term)
-        else
-            term
-    }
 
+}
+
+
+/*
+ * String extension functions using EntropyGenerator.
+ *
+ * This prevents nested method call hell in the PasswordGenerator combine phase.
+ */
+
+internal val eg = EntropyGenerator()
+
+fun String.replaceOnePunct() = eg.replaceOneChar(this, eg.punctuationMappings)
+fun String.replaceOneNumber() = eg.replaceOneChar(this, eg.numberMappings)
+
+/**
+ * Ensure there's at least one uppercase char, if not,
+ * pick one at random and uppercase it
+ */
+fun String.ensureUppercase(): String
+{
+    return if (!eg.containsUppercase(this))
+        eg.randomlyUppercase(this)
+    else
+        this
+}
+
+/**
+ * Adds a suffix to the string - if the string has no punctuation
+ * characters already, it will include one punctuation character in
+ * the suffix, otherwise it will use just numbers
+ */
+@JvmOverloads
+fun String.addSuffix(size: Int = 2): String
+{
+    return if (eg.containsPunctuation(this)) {
+        eg.appendNumbers(this, size)
+    } else {
+        val pterm = eg.appendPunct(this)
+        eg.appendNumbers(pterm, size - 1)
+    }
 }
