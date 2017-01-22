@@ -7,6 +7,9 @@ from WordNet to generate memorable passwords that will pass most stringent requi
 Disclaimers apply: any password generated from word lists will be significantly less secure than a
 purely random one.
 
+This was the first thing I wrote in Kotlin, and I can already see places where I've made errors
+or could have done considerably better - don't judge too harshly!
+
 Building
 --------
 
